@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+</h:head>
+
+<h:body>
+   <style type="text/css">
+      .logo {
+         width: 5%
+      }
+
+      .detail {
+         width: 95%;
+         padding-left: 25px;
+      }
+
+      .detail td {
+         font-size: 24px;
+      }
+   </style>
+
+
+   <h:form id="form">
+      <p:repeat value="#{allTeamsView.teams}" var="team">
+         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+            <p:graphicImage library="images" name="#{team.name.toLowerCase()}.jpg"/>
+
+            <p:outputPanel>
+               <h:panelGrid columns="2" cellpadding="5">
+                  <h:outputText value="City:"/>
+                  <h:outputText value="#{team.city}" style="font-weight: bold"/>
+                  <h:outputText value="Name:"/>
+                  <h:outputText value="#{team.name}" style="font-weight: bold"/>
+                  <h:outputText value="Since:"/>
+                  <h:outputText value="#{team.estYear}" style="font-weight: bold"/>
+                  <h:outputText value="Championships:"/>
+                  <h:outputText value="#{team.championships}" style="font-weight: bold"/>
+               </h:panelGrid>
+            </p:outputPanel>
+            <p:commandButton value="Update NBA Team" action="#{allTeamsView.redirectToEditTeam}"
+                             style="margin-right:20px;">
+               <f:actionListener binding="#{editTeamView.populateView(team.id)}" />
+            </p:commandButton>
+            <p:commandButton value="Delete NBA Player" action="#{allTeamsView.deleteTeam(team.id)}"
+                             style="margin-right:20px;"/>
+         </h:panelGrid>
+         <hr/>
+      </p:repeat>
+      <p:commandButton value="Add NBA Team" action="#{allTeamsView.redirectToEditTeam}" style="margin-right:20px;"/>
+   </h:form>
+
+</h:body>
+</html>
